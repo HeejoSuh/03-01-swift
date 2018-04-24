@@ -2,9 +2,9 @@
 //----------------------------------------------------------------
 //----------------------------------------------------------------
 //
-//  main.swift
+//  ReverseString.swift
 //
-//  This program uses recursion to reverse string
+//  This program reverses string using Recursion
 //
 //
 //  Created by Heejo Suh in Apr 2018
@@ -14,47 +14,34 @@
 
 
 //
-class reverseStr {
+class ReverseString {
 	
 	var sentence: String = ""
-	var reverse: String = ""
 	
 	init() {
 		//Default constructor
-		
-		//get the string to reverse
-		print("Enter a sentence:")
-		let input: String? = readLine(strippingNewline: true)
-		if input != nil {
-			sentence = input!
-		}
-		
-		reverseSentence(unprocessed: sentence);
 	}
 	
-	func reverseSentence(unprocessed: String) {
+	func reverse(inputSentence: String) {
 		//Reverse the sentence
-		let subString: Substring;
-		let lastChar: Character;
+		let subStringNoLastChar: Substring;
+		let lastCharacterOfString: Character;
 		
-		if(unprocessed.count > 0) {
-			let index = unprocessed.index(unprocessed.startIndex, offsetBy: unprocessed.count - 1)
-			subString = unprocessed[..<index]
-			lastChar = unprocessed[index]
-			reverse += [lastChar]
+		if(inputSentence.count > 0) {
+			//create index because swift needs such a long index
+			let index = inputSentence.index(inputSentence.startIndex, offsetBy: inputSentence.count - 1)
+			subStringNoLastChar = inputSentence[..<index] //create substring using '..<index'
+			lastCharacterOfString = inputSentence[index] //set last character
+			print(lastCharacterOfString)
 			
-			print(subString + " -> " + reverse)
-			
-			reverseSentence(unprocessed: String(subString))
+			//recall method from inside the same method
+			reverse(inputSentence: String(subStringNoLastChar))
 		}
 	}
-	
-	func getSentence() -> String { return sentence } //Getter
-	
-	func getReverse() -> String { return reverse } //Getter
 }
 
-//Instantiate a ReverseStr object
-let reverser: reverseStr = reverseStr()
-print("Original: \(reverser.getSentence())")
-print("Reversed: \(reverser.getReverse())")
+
+//Instantiate object
+let obj: ReverseString = ReverseString()
+print("String to be reversed ->")
+obj.reverse(inputSentence: "String to be reversed")
